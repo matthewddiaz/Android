@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -48,6 +50,7 @@ public class MainActivity extends ActionBarActivity {
     Button mBmult;
     Button mBdiv;
     Button mEquals;
+    ArrayList<Integer> operator_list = new ArrayList<Integer>();
 
 
     @Override
@@ -178,12 +181,15 @@ public class MainActivity extends ActionBarActivity {
             default:
                     if(right_operand == 0){
                         make_a_toast(getResources().getString(R.string.toast_View));
-                        mScreen.setText(R.string.cal_screen);
+                        mScreen.setText("NaN");
                     }
                     else{
                         answer = divider(left_operand,right_operand);
                     }
                     break;
+        }
+        if(mScreen.getText().toString().equals("NaN")){
+          return;
         }
         mScreen.append(String.valueOf(equals_sign + " " +  answer));
     }
