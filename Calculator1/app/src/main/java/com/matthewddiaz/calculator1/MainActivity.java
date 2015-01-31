@@ -192,6 +192,7 @@ public class MainActivity extends ActionBarActivity {
           return;
         }
         mScreen.append(String.valueOf(equals_sign + " " +  answer));
+        left_operand = answer;
     }
 
     public void make_a_toast(CharSequence text){
