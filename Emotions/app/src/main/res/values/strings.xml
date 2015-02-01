@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Emotions</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="emotions_array">
+        <item>Emotion List</item>
+        <item>Affection</item>
+        <item>Afraid</item>
+        <item>Angry</item>
+        <item>Happy</item>
+        <item>Sad</item>
+        <item>Surprised</item>
+    </string-array>
+</resources>
