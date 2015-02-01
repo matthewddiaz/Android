@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Name That Country!</string>
+    <string name="q_text">What is the name of this country</string>
+    <string name="ans1">Matthew Diaz</string>
+    <string name="ans2">Eric Picard</string>
+    <string name="ans3">Zach Montegue</string>
+    <string name="ans4">Eric Pelz</string>
+    <string name="c_ans1">Matthew Diaz</string>
+    <string name="next_button">Next</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="answer_choice_list">
+        <item> Peru </item>
+        <item> Chile </item>
+        <item> Brazil </item>
+        <item> Colombia </item>
+        <item> Bolivia </item>
+        <item> Ecuador </item>
+    </string-array>
+
+</resources>

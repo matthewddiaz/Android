@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".Countries"
+    android:gravity="bottom">
+
+    <TextView
+        android:id="@+id/question"
+        android:text="@string/q_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/ic_launcher"
+        android:textSize="20sp"
+        android:gravity="center" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:useDefaultMargins="true"
+        android:columnCount="1"
+        android:rowCount="4">
+
+        <Button
+            android:id="@+id/choice1"
+            android:text="@string/ans1"
+            android:background="@drawable/color_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Choice1_handler"
+            />
+
+       <Button
+            android:id="@+id/choice2"
+            android:text="@string/ans2"
+            android:background="@drawable/color_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:onClick="Choice2_handler"
+            />
+
+        <Button
+            android:id="@+id/choice3"
+            android:text="@string/ans3"
+            android:background="@drawable/color_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Choice3_handler"
+            />
+        <Button
+            android:id="@+id/choice4"
+            android:text="@string/ans4"
+            android:background="@drawable/color_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="Choice4_handler"
+            />
+    </GridLayout>
+
+    <Space
+        android:layout_width="258dp"
+        android:layout_height="61dp" />
+
+    <Button
+        android:id="@+id/button_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/next_button"
+        android:layout_gravity="right" />
+
+</LinearLayout>
