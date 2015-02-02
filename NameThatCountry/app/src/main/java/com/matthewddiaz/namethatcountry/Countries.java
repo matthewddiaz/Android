@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ConcurrentModificationException;
-
 
 public class Countries extends ActionBarActivity {
     TextView mQuestion;
@@ -22,6 +20,7 @@ public class Countries extends ActionBarActivity {
     Button mChoice3;
     Button mChoice4;
     Button mNext;
+    Questions[] mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +32,7 @@ public class Countries extends ActionBarActivity {
         mChoice3 = (Button)findViewById(R.id.choice3);
         mChoice4 = (Button)findViewById(R.id.choice4);
         mNext = (Button)findViewById(R.id.button_next);
+        mList = new Questions[10];
     }
 
 
@@ -58,6 +58,12 @@ public class Countries extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void createListOfPatterns(){
+        for(int x = 0; x < 2;x++){
+            mList[x] = new Questions(x);
+        }
+    }
+
     public void Choice1_handler(View view){
         CharSequence ans = mChoice1.getText();
         is_Correct(ans);
@@ -72,9 +78,14 @@ public class Countries extends ActionBarActivity {
         CharSequence ans = mChoice3.getText();
         is_Correct(ans);
     }
+
     public void Choice4_handler(View view){
         CharSequence ans = mChoice4.getText();
         is_Correct(ans);
+    }
+
+    public void next_handler(View view){
+
     }
 
     private void is_Correct(CharSequence user_ans){

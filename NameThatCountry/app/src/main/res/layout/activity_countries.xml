@@ -11,12 +11,13 @@
         android:text="@string/q_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableTop="@drawable/ic_launcher"
+        android:drawableTop="@drawable/rsz_southamerica"
         android:textSize="20sp"
         android:gravity="center" />
+
     <Space
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_width="fill_parent"
+        android:layout_height="30dp" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -63,13 +64,15 @@
 
     <Space
         android:layout_width="258dp"
-        android:layout_height="61dp" />
+        android:layout_height="20dp" />
 
     <Button
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
         android:text="@string/next_button"
-        android:layout_gravity="right" />
+        android:layout_gravity="right"
+        android:onClick="next_handler"
+        />
 
 </LinearLayout>
