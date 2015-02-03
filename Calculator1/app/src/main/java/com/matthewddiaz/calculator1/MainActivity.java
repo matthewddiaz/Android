@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
-
+import java.util.Stack;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -30,10 +30,9 @@ public class MainActivity extends ActionBarActivity {
     CharSequence multiply_sign = "*";
     CharSequence divide_sign = "/";
     CharSequence equals_sign = "=";
-    long  left_operand = 0;
-    long right_operand = 0;
-    long answer = 0;
-    int operation_choice = 0;
+    int  left_operand = 0;
+    int right_operand = 0;
+    int  answer = 0;
     TextView mScreen;
     Button mB0;
     Button mB1;
@@ -50,7 +49,7 @@ public class MainActivity extends ActionBarActivity {
     Button mBmult;
     Button mBdiv;
     Button mEquals;
-    ArrayList<Integer> operator_list = new ArrayList<Integer>();
+    Stack<String> stack;
 
 
     @Override
@@ -73,6 +72,7 @@ public class MainActivity extends ActionBarActivity {
         mBmult = (Button)findViewById(R.id.button_multiply);
         mBdiv = (Button)findViewById(R.id.button_divide);
         mEquals = (Button)findViewById(R.id.button_equals);
+        stack = new Stack<String>();
 
     }
 
@@ -135,64 +135,78 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void b_add_action(View view){
-        operation_choice = 1;
-        mScreen.append(String.valueOf(plus_sign));
         CharSequence l1 = mScreen.getText();
-        String findpos = l1.toString();
-        operand_pos = findpos.indexOf("+");
+        CharSequence num = l1.subSequence(operand_pos,l1.length());
+        String actual_num = num.toString();
+        stack.push(actual_num);
+        stack.push("+");
+        operand_pos = l1.length()+ 1;
+        mScreen.append(String.valueOf(plus_sign));
     }
 
     public void b_sub_action(View view){
-        operation_choice = 2;
+        CharSequence l2 = mScreen.getText();
+        CharSequence num = l2.subSequence(operand_pos,l2.length());
+        String actual_num = num.toString();
+        stack.push(actual_num);
+        stack.push("-");
+        operand_pos = l2.length()+ 1;
         mScreen.append(String.valueOf(subtract_sign));
-        CharSequence l1 = mScreen.getText();
-        String findpos = l1.toString();
-        operand_pos = findpos.indexOf("-");
     }
 
     public void b_mult_action(View view){
-        operation_choice = 3;
+        CharSequence l3 = mScreen.getText();
+        CharSequence num = l3.subSequence(operand_pos,l3.length());
+        String actual_num = num.toString();
+        stack.push(actual_num);
+        stack.push("*");
+        operand_pos = l3.length() + 1;
         mScreen.append(String.valueOf(multiply_sign));
-        CharSequence l1 = mScreen.getText();
-        String findpos = l1.toString();
-        operand_pos = findpos.indexOf("*");
     }
 
     public void b_div_action(View view){
-        operation_choice = 4;
+        CharSequence l4 = mScreen.getText();
+        CharSequence num = l4.subSequence(operand_pos,l4.length());
+        String actual_num = num.toString();
+        stack.push(actual_num);
+        stack.push("/");
+        operand_pos = l4.length() + 1;
         mScreen.append(String.valueOf(divide_sign));
-        CharSequence l1 = mScreen.getText();
-        String findpos = l1.toString();
-        operand_pos = findpos.indexOf("/");
     }
 
     public void b_equals_action(View view){
-        CharSequence ans = mScreen.getText();
-        String par = ans.toString();
-        left_operand = Integer.parseInt(par.substring(0,operand_pos));
-        right_operand = Integer.parseInt(par.substring(operand_pos+1));
-        switch (operation_choice){
-            case 1: answer = adder(left_operand,right_operand);
+        CharSequence other_ans = mScreen.getText();
+        CharSequence num = other_ans.subSequence(operand_pos,other_ans.length());
+        String actual_num = num.toString();
+        stack.push(actual_num);
+        String operation;
+        while(!stack.empty()){
+            right_operand = Integer.parseInt(stack.pop());
+            operation = stack.pop();
+            left_operand = Integer.parseInt(stack.pop());
+            switch (operation){
+                case "+": answer = adder(left_operand,right_operand);
                     break;
-            case 2: answer = subtract(left_operand,right_operand);
+                case "-": answer = subtract(left_operand,right_operand);
                     break;
-            case 3: answer = multiplier(left_operand,right_operand);
+                case "*": answer = multiplier(left_operand,right_operand);
                     break;
-            default:
+                default:
                     if(right_operand == 0){
                         make_a_toast(getResources().getString(R.string.toast_View));
                         mScreen.setText("NaN");
+                        return;
                     }
                     else{
                         answer = divider(left_operand,right_operand);
                     }
                     break;
-        }
-        if(mScreen.getText().toString().equals("NaN")){
-          return;
+            }
+            if(!stack.empty()){
+                stack.push(Integer.toString(answer));
+            }
         }
         mScreen.append(String.valueOf(equals_sign + " " +  answer));
-        left_operand = answer;
     }
 
     public void make_a_toast(CharSequence text){
@@ -204,18 +218,19 @@ public class MainActivity extends ActionBarActivity {
 
     public void b_clear_action(View view){
         mScreen.setText("");
+        operand_pos = 0;
     }
 
-    private long adder(long a,long b){
+    private int adder(int a,int b){
         return a + b;
     }
-    private long subtract(long a,long b){
+    private int subtract(int a,int b){
         return a - b;
     }
-    private long multiplier(long a,long b){
+    private int multiplier(int a,int b){
         return a * b;
     }
-    private long divider(long a,long b){
+    private int divider(int a,int b){
         return a/b;
     }
 
