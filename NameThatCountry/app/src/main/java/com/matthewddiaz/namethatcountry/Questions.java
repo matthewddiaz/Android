@@ -38,13 +38,13 @@ public class Questions extends Activity{
         return mAnswer;
     }
 
-    public String getChoices(int choice){ // (maybe error)
+    public String getChoices(int choice){
         return mChoices[choice];
     }
 
     public void shuffling(){
         ShuffleString s1 = new ShuffleString(mChoices);//The shuffle should only
-        mChoices = s1.shuffle();//be done once!!
+        mChoices = s1.shuffle();//be done once per Question object!!
     }
 
 

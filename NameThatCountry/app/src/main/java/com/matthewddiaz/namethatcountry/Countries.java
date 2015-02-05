@@ -24,7 +24,9 @@ public class Countries extends ActionBarActivity {
     Button mNext;
     private String[] questions, answers;
     Questions[] mList;
+    int mListLen;
     int mUniversalCounter = 0;
+    int[] rand_pos;
 
 
     @Override
@@ -39,8 +41,10 @@ public class Countries extends ActionBarActivity {
         mNext = (Button)findViewById(R.id.button_next);
         questions = getResources().getStringArray(R.array.question_list);
         answers = getResources().getStringArray(R.array.answer_list);
-        mList = new Questions[10];
-        int[] rand_pos = createRandomOrder();
+        int len = questions.length;//the length of the array is determined by the total number
+        mList = new Questions[len];//of questions that I have available
+        mListLen = mList.length;
+        rand_pos = createRandomOrder();
         int[][] realRandomIntList = all_random_choices(rand_pos);
         String[][] stringValues = convertor(realRandomIntList);
         create_Questions(rand_pos,stringValues);
@@ -72,8 +76,8 @@ public class Countries extends ActionBarActivity {
     //Step 1) Objective to produce an array of random numbers range[0 mList.length]
     //the array should be equal size to mList
     public int[] createRandomOrder(){
-        int[ ] randomOrder = new int[mList.length];
-        for(int i = 0; i< mList.length;++i){
+        int[ ] randomOrder = new int[mListLen];
+        for(int i = 0; i< mListLen;++i){
             randomOrder[i] = i;
         }
         Shuffle s1 = new Shuffle(randomOrder);
@@ -84,8 +88,8 @@ public class Countries extends ActionBarActivity {
     //Step 2) Objective to produce 3 different wrong answers
     //for each of the rows therefore 2D array. With row as a set of choices!
     public int[][] all_random_choices(int[] rand_order){
-        int[][] filler = new int[mList.length][3];
-        for(int i = 0; i < mList.length;++i){
+        int[][] filler = new int[mListLen][3];
+        for(int i = 0; i < mListLen;++i){
             filler[i] = random_listor(rand_order[i]);
         }
         return filler;
@@ -101,7 +105,7 @@ public class Countries extends ActionBarActivity {
         int num;
         Random rnd = new Random();
         while (index != 3) {
-            num = rnd.nextInt(mList.length);
+            num = rnd.nextInt(mListLen);
             if (index == 1)
                 choice1 = arr[0];
             if (index == 2)
@@ -118,8 +122,8 @@ public class Countries extends ActionBarActivity {
     //int_choices[y][x] is saying
     //ex: Question 1 choice 1 would give a number
     public String[][] convertor(int[][] int_choices){
-        String[][] actual_choices = new String[mList.length][3];
-        for(int y = 0; y < mList.length;++y){
+        String[][] actual_choices = new String[mListLen][3];
+        for(int y = 0; y < mListLen;++y){
             for(int x = 0; x < 3; ++x){
                 actual_choices[y][x] = answers[int_choices[y][x]];//maybe (error)
             }
@@ -156,9 +160,9 @@ public class Countries extends ActionBarActivity {
         is_Correct(mChoice4.getText());
     }
 
-    //plan of making mList.length a global variable!
+    //plan on making mList.length a global variable!
     public void next_handler(View view){
-        mUniversalCounter = (++mUniversalCounter)%mList.length;
+        mUniversalCounter = (++mUniversalCounter)%mListLen;
         mQuestion.setText(mList[mUniversalCounter].getQuestion());
         mChoice1.setText(mList[mUniversalCounter].getChoices(0));
         mChoice2.setText(mList[mUniversalCounter].getChoices(1));
@@ -168,9 +172,9 @@ public class Countries extends ActionBarActivity {
     }
 
     private void is_Correct(CharSequence user_ans){
-        if(user_ans  == answers[mUniversalCounter]){
-            make_Toast(R.drawable.rsz_correct);
-        }
+        if(user_ans  == answers[rand_pos[mUniversalCounter]]){//rand_pos gave shuffled order
+            make_Toast(R.drawable.rsz_correct);//for questions at 0 will give that
+        }//particular questions answer!
         else
             make_Toast(R.drawable.rsz_false1);
     }
