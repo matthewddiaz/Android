@@ -3,11 +3,11 @@
 
     <string name="app_name">Name That Country!</string>
     <string name="q_text">What is the name of this country</string>
-    <string name="ans1">Matthew Diaz</string>
-    <string name="ans2">Eric Picard</string>
-    <string name="ans3">Zach Montegue</string>
-    <string name="ans4">Eric Pelz</string>
-    <string name="c_ans1">Matthew Diaz</string>
+    <string name="ans1">Peru</string>
+    <string name="ans2">Brazil </string>
+    <string name="ans3">Colombia</string>
+    <string name="ans4">Argentina</string>
+    <string name="c_ans1">Peru</string>
     <string name="next_button">Next</string>
     <string name="action_settings">Settings</string>
 

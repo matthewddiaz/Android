@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,6 +49,7 @@ public class Countries extends ActionBarActivity {
         int[][] realRandomIntList = all_random_choices(rand_pos);
         String[][] stringValues = convertor(realRandomIntList);
         create_Questions(rand_pos,stringValues);
+        update();
     }
 
 
@@ -146,29 +148,29 @@ public class Countries extends ActionBarActivity {
     }
 
     public void Choice2_handler(View view){
-        CharSequence ans = mChoice2.getText();
         is_Correct(mChoice2.getText());
     }
 
     public void Choice3_handler(View view){
-        int ans = R.id.choice1;
         is_Correct(mChoice3.getText());
     }
 
     public void Choice4_handler(View view){
-        int ans = R.id.choice1;
         is_Correct(mChoice4.getText());
     }
 
     //plan on making mList.length a global variable!
     public void next_handler(View view){
         mUniversalCounter = (++mUniversalCounter)%mListLen;
+        update();
+    }
+
+    public void update(){
         mQuestion.setText(mList[mUniversalCounter].getQuestion());
         mChoice1.setText(mList[mUniversalCounter].getChoices(0));
         mChoice2.setText(mList[mUniversalCounter].getChoices(1));
         mChoice3.setText(mList[mUniversalCounter].getChoices(2));
         mChoice4.setText(mList[mUniversalCounter].getChoices(3));
-
     }
 
     private void is_Correct(CharSequence user_ans){
