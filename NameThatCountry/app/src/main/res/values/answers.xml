@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="answer_list">
+        <item> Brazil</item>
+        <item> Bolivia </item>
+        <item> Paraguay </item>
+        <item> Uruguay </item>
+        <item> Argentina </item>
+        <item> Chile </item>
+        <item>Peru </item>
+        <item> Ecuador </item>
+        <item> Colombia</item>
+        <item> Venezuela</item>
+        <item> Guyana</item>
+        <item> Suriname</item>
+
+    </string-array>
+</resources>

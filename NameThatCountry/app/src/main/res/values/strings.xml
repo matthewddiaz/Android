@@ -11,20 +11,4 @@
     <string name="next_button">Next</string>
     <string name="action_settings">Settings</string>
 
-    <string-array name="answer_list">
-        <item> Peru </item>
-        <item> Chile </item>
-    </string-array>
-    <string-array name="answer_choice_list">
-        <item> Peru </item>
-        <item> Chile </item>
-        <item> Brazil </item>
-        <item> Colombia </item>
-
-        <item> Bolivia </item>
-        <item> Ecuador </item>
-        <item> Chile </item>
-        <item> Brazil </item>
-    </string-array>
-
 </resources>

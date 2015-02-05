@@ -1,34 +1,48 @@
 package com.matthewddiaz.namethatcountry;
 
 import android.app.Activity;
+import android.os.Bundle;
+
 import java.util.Arrays;
+import java.lang.Object;
 
 /**
  * Created by matthew on 2/1/15.
  */
 public class Questions extends Activity{
-    private CharSequence question;
-    private String[] pos_choices;
-    private CharSequence answer;
+    private String mQuestion;
+    private String mAnswer;
+    private String[] mChoices;
 
-    public Questions(int num){
-        int position  = num*4;
-        question = getResources().getString(R.string.q_text);
-        String[] all_choices = getResources().getStringArray(R.array.answer_choice_list);
-        pos_choices = Arrays.copyOfRange(all_choices,position,position+3);
-        answer = getResources().getString(R.string.ans1);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_countries);
     }
 
-    public CharSequence getQuestion(){
-        return question;
+
+
+    public Questions(String q,String a,String[] c){
+       mQuestion = q;
+       mAnswer = a;
+       mChoices = new String[4];//this basically adds ths three wrong answers
+       System.arraycopy(c,0,mChoices,0,c.length); // with the correct to make 4 possible choices
+       mChoices[3] = a;
+
     }
 
-    public CharSequence get_answer(){
-        return answer;
+    public String getQuestion(){
+        return mQuestion;
     }
 
-    public CharSequence get_ans_choices(int choice_num){
-        return pos_choices[choice_num];
+    public String getAnswer() {
+        return mAnswer;
     }
+
+    public String getChoices(int choice){ // (maybe error)
+        ShuffleString s1 = new ShuffleString(mChoices);
+        mChoices = s1.shuffle();
+        return mChoices[choice];
+    }
+
 
 }
