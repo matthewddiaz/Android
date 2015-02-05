@@ -27,7 +27,7 @@ public class Questions extends Activity{
        mChoices = new String[4];//this basically adds ths three wrong answers
        System.arraycopy(c,0,mChoices,0,c.length); // with the correct to make 4 possible choices
        mChoices[3] = a;
-
+       shuffling();
     }
 
     public String getQuestion(){
@@ -39,9 +39,12 @@ public class Questions extends Activity{
     }
 
     public String getChoices(int choice){ // (maybe error)
-        ShuffleString s1 = new ShuffleString(mChoices);
-        mChoices = s1.shuffle();
         return mChoices[choice];
+    }
+
+    public void shuffling(){
+        ShuffleString s1 = new ShuffleString(mChoices);//The shuffle should only
+        mChoices = s1.shuffle();//be done once!!
     }
 
 
