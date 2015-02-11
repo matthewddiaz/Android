@@ -1,5 +1,4 @@
 package com.matthewddiaz.montecarlopi;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -23,8 +22,7 @@ public class Pair {
        }
 
        public double random_generator() {
-           Random rnd = new Random();
-           return rnd.nextDouble();
+           return Math.random();
        }
 
 

@@ -1,4 +1,5 @@
 package com.matthewddiaz.montecarlopi;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -49,7 +51,13 @@ public class MainActivity extends ActionBarActivity {
     public void enterHandler(View view){
 
         String repeats = mUserInput.getText().toString();
-        final long numOfCycles = Integer.valueOf(repeats);
+        final int numOfCycles;
+        try{//used try catch to catch a number that is too large for an interger!
+            numOfCycles = Integer.valueOf(repeats);
+        }catch(Exception e){
+            displayToast();
+            return;
+        }
         new Thread(new Runnable(){
             public void run() {
                 int cycles = 1000;
@@ -81,6 +89,14 @@ public class MainActivity extends ActionBarActivity {
     double getAnswer(int inside, int total){
         double pi = (4.0*inside)/total;
         return pi;
+    }
+
+    void displayToast(){
+        Context context = getApplicationContext();
+        CharSequence text = "Number to large. [1 - 200000]";
+        int duration = Toast.LENGTH_LONG;
+        Toast toast = Toast.makeText(context,text,duration);
+        toast.show();
     }
 
 
