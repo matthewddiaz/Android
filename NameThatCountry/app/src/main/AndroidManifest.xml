@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.matthewddiaz.namethatcountry" >
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -12,9 +11,29 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Opener"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+    </application>
 </manifest>
+
+    <!-- Note each java class that extends activity and which will
+    be an activity in your app needs to be defined here in AndroidManifest -->
+
+    <!-- From android.com "The manifest file presents essential information about your
+     app to the Android system, information the system must have before it can run any of
+     the app's code. It describes the components of the application — the activities, services,
+     broadcast receivers, and content providers that the application is composed of. It names the
+     classes that implement each of the components and publishes their capabilities (for example,
+     which Intent messages they can handle). These declarations let the Android system know what
+     the components are and under what conditions they can be launched".-->

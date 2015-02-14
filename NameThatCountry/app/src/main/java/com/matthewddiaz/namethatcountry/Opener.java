@@ -1,5 +1,6 @@
 package com.matthewddiaz.namethatcountry;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -26,7 +27,8 @@ public class Opener extends ActionBarActivity {
     }
 
     public void option1_handler(View view){
-
+        Intent intent = new Intent(this, Countries.class);
+        startActivity(intent);
     }
 
     public void option2_handler(View view){
