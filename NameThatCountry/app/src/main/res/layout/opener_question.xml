@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Added opener_image.jpg using android:background-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/opener_image"
+    android:layout_height="match_parent">
+
+    <!-- Color can be changed by just clicking on the color box on the left!-->
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_text"
+        android:textColor="#ff000000"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="15dp"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/continent_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#ffffa03a"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:text="@string/welcome_q_text"
+        />
+
+    <Button
+        android:id="@+id/option_1"
+        android:layout_margin="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
+        android:layout_gravity="center"
+        android:text="@string/continent1"
+        />
+
+    <!--Designed own button shape which background uses -->
+    <Button
+        android:id="@+id/option_2"
+        android:layout_margin="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
+        android:layout_gravity="center"
+        android:text="@string/continent2"
+    />
+
+    <Button
+        android:id="@+id/option_3"
+        android:layout_margin="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
+        android:layout_gravity="center"
+        android:text="@string/continent3"
+        />
+
+    <!-- Padding is for how big you want the button-->
+    <!-- Margin is for much space you want between buttons-->
+    <Button
+        android:id="@+id/option_4"
+        android:layout_margin="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_design"
+        android:layout_gravity="center"
+        android:text="@string/continent4"
+        />
+    <TextView
+        android:id="@+id/creator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#008b46"
+        android:textStyle="bold"
+        android:text="@string/creator_text"
+        android:layout_marginTop="70dp"
+
+        />
+</LinearLayout>

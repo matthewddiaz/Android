@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome_text"> Welcome to Name That Country</string>
+    <string name="welcome_q_text"> Choose a continent: </string>
+    <string name="continent1">South America</string>
+    <string name="continent2">Europe</string>
+    <string name="continent3">Asia</string>
+    <string name="continent4">Africa</string>
+    <string name="creator_text">Made by: Matthew Diaz</string>
+
+</resources>
