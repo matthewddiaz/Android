@@ -40,6 +40,7 @@
         android:background="@drawable/button_design"
         android:layout_gravity="center"
         android:text="@string/continent1"
+        android:onClick="option1_handler"
         />
 
     <!--Designed own button shape which background uses -->
@@ -51,6 +52,7 @@
         android:background="@drawable/button_design"
         android:layout_gravity="center"
         android:text="@string/continent2"
+        android:onClick="option2_handler"
     />
 
     <Button
@@ -61,6 +63,7 @@
         android:background="@drawable/button_design"
         android:layout_gravity="center"
         android:text="@string/continent3"
+        android:onClick="option3_handler"
         />
 
     <!-- Padding is for how big you want the button-->
@@ -73,6 +76,7 @@
         android:background="@drawable/button_design"
         android:layout_gravity="center"
         android:text="@string/continent4"
+        android:onClick="option4_handler"
         />
     <TextView
         android:id="@+id/creator"

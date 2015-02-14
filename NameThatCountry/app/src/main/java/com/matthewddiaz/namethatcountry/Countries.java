@@ -17,17 +17,17 @@ import java.util.Random;
 
 
 public class Countries extends ActionBarActivity {
-    TextView mQuestion;
-    Button mChoice1;
-    Button mChoice2;
-    Button mChoice3;
-    Button mChoice4;
-    Button mNext;
+    private TextView mQuestion;
+    private Button mChoice1;
+    private Button mChoice2;
+    private Button mChoice3;
+    private Button mChoice4;
+    private Button mNext;
     private String[] questions, answers;
-    Questions[] mList;
-    int mListLen;
-    int mUniversalCounter = 0;
-    int[] rand_pos;
+    private Questions[] mList;
+    private int mListLen;
+    private int mUniversalCounter = 0;
+    private int[] rand_pos;
 
 
     @Override
@@ -186,6 +186,7 @@ public class Countries extends ActionBarActivity {
         ImageView view = new ImageView(this);
         view.setImageResource(imageNum);
         toast.setView(view);
+        toast.setDuration(toast.LENGTH_SHORT);//adding this to set duration short not sure if in effect
         toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 0);
         toast.show();
     }
