@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="europe_answers_list">
+        <item>Ireland</item>
+        <item>United Kingdom</item>
+        <item>Iceland</item>
+        <item>Portugal</item>
+        <item>Spain</item>
+        <item>France</item>
+        <item>Belgium</item>
+        <item>Netherlands</item>
+        <item>Denmark</item>
+        <item>Norway</item>
+        <item>Sweden</item>
+        <item>Finland</item>
+        <item>Russia</item>
+        <item>Estonia</item>
+        <item>Latvia</item>
+        <item>Lithuania</item>
+        <item>Poland</item>
+        <item>Germany</item>
+        <item>Switzerland</item>
+        <item>Italy</item>
+        <item>Slovenia</item>
+        <item>Austria</item>
+        <item>Czech Republic</item>
+        <item>Slovakia</item>
+        <item>Belarus</item>
+        <item>Ukraine</item>
+        <item>Moldova</item>
+        <item>Romania</item>
+        <item>Hungary</item>
+        <item>Croatia</item>
+        <item>Bosnia</item>
+        <item>Serbia</item>
+        <item>Montenegro</item>
+        <item>Kosovo</item>
+        <item>Macedonia</item>
+        <item>Albania</item>
+        <item>Greece</item>
+        <item>Bulgaria</item>
+        <item>Turkey</item>
+
+    </string-array>
+</resources>

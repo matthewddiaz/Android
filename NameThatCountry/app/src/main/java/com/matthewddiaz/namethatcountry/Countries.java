@@ -40,8 +40,8 @@ public class Countries extends ActionBarActivity {
         mChoice3 = (Button)findViewById(R.id.choice3);
         mChoice4 = (Button)findViewById(R.id.choice4);
         mNext = (Button)findViewById(R.id.button_next);
-        questions = getResources().getStringArray(R.array.question_list);
-        answers = getResources().getStringArray(R.array.answer_list);
+        questions = getResources().getStringArray(R.array.south_america_list);
+        answers = getResources().getStringArray(R.array.south_america_answer_list);
         int len = questions.length;//the length of the array is determined by the total number
         mList = new Questions[len];//of questions that I have available
         mListLen = mList.length;
