@@ -40,8 +40,11 @@ public class Countries extends ActionBarActivity {
         mChoice3 = (Button)findViewById(R.id.choice3);
         mChoice4 = (Button)findViewById(R.id.choice4);
         mNext = (Button)findViewById(R.id.button_next);
-        questions = getResources().getStringArray(R.array.south_america_list);
-        answers = getResources().getStringArray(R.array.south_america_answer_list);
+        //userChoose gets which continent the user choose.
+        int[] userChoose = getIntent().getIntArrayExtra("continent");
+        mQuestion.setCompoundDrawablesWithIntrinsicBounds (0,userChoose[0],0,0);
+        questions = getResources().getStringArray(userChoose[1]);
+        answers = getResources().getStringArray(userChoose[2]);
         int len = questions.length;//the length of the array is determined by the total number
         mList = new Questions[len];//of questions that I have available
         mListLen = mList.length;
