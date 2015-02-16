@@ -58,6 +58,12 @@ public class Opener extends ActionBarActivity {
 
     }
     public void option4_handler(View view){
-
+        Intent intent = new Intent(this, Countries.class);
+        int[] africa_ids= new int[3];
+        africa_ids[0] = R.drawable.africa_map;
+        africa_ids[1] = R.array.africa_list;
+        africa_ids[2] = R.array.africa_answers_list;
+        intent.putExtra("continent",africa_ids);
+        startActivity(intent);
     }
 }

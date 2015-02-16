@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="africa_answers_list">
+        <item>South Africa</item>
+        <item>Lesotho</item>
+        <item>Swaziland</item>
+        <item>Madagascar</item>
+        <item>Mozambique</item>
+        <item>Malawi</item>
+        <item>Zimbabwe</item>
+        <item>Botswana</item>
+        <item>Namibia</item>
+        <item>Angola</item>
+        <item>Zambia</item>
+        <item>Tanzania</item>
+        <item>Democratic Rep. of Congo</item>
+        <item>Burundi</item>
+        <item>Rwanda</item>
+        <item>Republic of Congo</item>
+        <item>Gabon</item>
+        <item>Equatorial Guinea</item>
+        <item>Cameroon</item>
+        <item>Central African Rep.</item>
+        <item>South Sudan</item>
+        <item>Uganda</item>
+        <item>Kenya</item>
+        <item>Somalia</item>
+        <item>Ethiopia</item>
+        <item>Djibouti</item>
+        <item>Eritrea</item>
+        <item>Sudan</item>
+        <item>Chad</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>Benin</item>
+        <item>Togo</item>
+        <item>Ghana</item>
+        <item>Ivory Coast</item>
+        <item>Liberia</item>
+        <item>Sierra Leone</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Senegal</item>
+        <item>Mauritania</item>
+        <item>Mali</item>
+        <item>Burkina Faso</item>
+        <item>Morocco</item>
+        <item>Algeria</item>
+        <item>Tunisia</item>
+        <item>Libya</item>
+        <item>Egypt</item>
+
+    </string-array>
+</resources>
