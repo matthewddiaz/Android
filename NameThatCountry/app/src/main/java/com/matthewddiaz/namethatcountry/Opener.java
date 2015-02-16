@@ -39,6 +39,38 @@ public class Opener extends ActionBarActivity {
     * */
 
      public void option1_handler(View view){
+         Intent intent = new Intent(this, Countries.class);
+         int[] africa_ids= new int[3];
+         africa_ids[0] = R.drawable.africa_map;
+         africa_ids[1] = R.array.africa_list;
+         africa_ids[2] = R.array.africa_answers_list;
+         intent.putExtra("continent",africa_ids);
+         startActivity(intent);
+    }
+
+    public void option2_handler(View view){
+        Intent intent = new Intent(this, Countries.class);
+        int[] asia_ids= new int[3];
+        asia_ids[0] = R.drawable.asia_map;
+        asia_ids[1] = R.array.asia_list;
+        asia_ids[2] = R.array.asia_answers_list;
+        intent.putExtra("continent",asia_ids);
+        startActivity(intent);
+    }
+    public void option3_handler(View view){
+        Intent intent = new Intent(this, Countries.class);
+        int[] europe_ids= new int[3];
+        europe_ids[0] = R.drawable.europe_map;
+        europe_ids[1] = R.array.europe_list;
+        europe_ids[2] = R.array.europe_answers_list;
+        intent.putExtra("continent",europe_ids);
+        startActivity(intent);
+
+    }
+    public void option4_handler(View view){
+
+    }
+    public void option5_handler(View view){
         Intent intent = new Intent(this, Countries.class);
         int[] south_america_ids= new int[3];
         south_america_ids[0] = R.drawable.south_america;
@@ -48,31 +80,5 @@ public class Opener extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void option2_handler(View view){
-        Intent intent = new Intent(this, Countries.class);
-        int[] europe_ids= new int[3];
-        europe_ids[0] = R.drawable.europe_map;
-        europe_ids[1] = R.array.europe_list;
-        europe_ids[2] = R.array.europe_answers_list;
-        intent.putExtra("continent",europe_ids);
-        startActivity(intent);
-    }
-    public void option3_handler(View view){
-        Intent intent = new Intent(this, Countries.class);
-        int[] asia_ids= new int[3];
-        asia_ids[0] = R.drawable.asia_map;
-        asia_ids[1] = R.array.asia_list;
-        asia_ids[2] = R.array.asia_answers_list;
-        intent.putExtra("continent",asia_ids);
-        startActivity(intent);
-    }
-    public void option4_handler(View view){
-        Intent intent = new Intent(this, Countries.class);
-        int[] africa_ids= new int[3];
-        africa_ids[0] = R.drawable.africa_map;
-        africa_ids[1] = R.array.africa_list;
-        africa_ids[2] = R.array.africa_answers_list;
-        intent.putExtra("continent",africa_ids);
-        startActivity(intent);
-    }
+
 }
