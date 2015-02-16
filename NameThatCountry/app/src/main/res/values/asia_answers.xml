@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="asia_answers_list">
+        <item>Russia</item>
+        <item>Kazakhstan</item>
+        <item>Georgia</item>
+        <item>Azerbaijan</item>
+        <item>Armenia</item>
+        <item>Turkmenistan</item>
+        <item>Uzbekistan</item>
+        <item>Kyrgyzstan</item>
+        <item>Tajikistan</item>
+        <item>Afghanistan</item>
+        <item>Pakistan</item>
+        <item>India</item>
+        <item>Ski Lanka</item>
+        <item>Nepal</item>
+        <item>China</item>
+        <item>Mongolia</item>
+        <item>Bhutan</item>
+        <item>Bangladesh</item>
+        <item>Burma</item>
+        <item>Thailand</item>
+        <item>Cambodia</item>
+        <item>Vietnam</item>
+        <item>Laos</item>
+        <item>Philippines</item>
+        <item>South Korea</item>
+        <item>North Korea</item>
+        <item>Japan</item>
+    </string-array>
+</resources>

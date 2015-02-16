@@ -11,10 +11,12 @@ import android.widget.TextView;
  * Created by matthew on 2/13/15.
  */
 public class Opener extends ActionBarActivity {
+    /*Buttons are currently not being used!
+
     private Button mContitent1;
     private Button mContitent2;
     private Button mContitent3;
-    private Button mContitent4;
+    private Button mContitent4;*/
 
     /*Created Buttons so that Opener.java would connect with
     opener_question.xml and so that onClick handler works!
@@ -22,10 +24,11 @@ public class Opener extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.opener_question);
+        /*
         mContitent1 = (Button)findViewById(R.id.option_1);
         mContitent2 = (Button)findViewById(R.id.option_2);
         mContitent3 = (Button)findViewById(R.id.option_3);
-        mContitent4 = (Button)findViewById(R.id.option_4);
+        mContitent4 = (Button)findViewById(R.id.option_4);*/
     }
 
     /*The Intent allows for another activity to start!
@@ -55,7 +58,13 @@ public class Opener extends ActionBarActivity {
         startActivity(intent);
     }
     public void option3_handler(View view){
-
+        Intent intent = new Intent(this, Countries.class);
+        int[] asia_ids= new int[3];
+        asia_ids[0] = R.drawable.asia_map;
+        asia_ids[1] = R.array.asia_list;
+        asia_ids[2] = R.array.asia_answers_list;
+        intent.putExtra("continent",asia_ids);
+        startActivity(intent);
     }
     public void option4_handler(View view){
         Intent intent = new Intent(this, Countries.class);

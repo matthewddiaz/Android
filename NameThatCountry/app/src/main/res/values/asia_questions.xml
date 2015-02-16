@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="asia_list">
+        <item> What country is #1 pointing too</item>
+        <item> What country is #2 pointing too</item>
+        <item> What country is #4 pointing too</item>
+        <item> What country is #5 pointing too</item>
+        <item> What country is #6 pointing too</item>
+        <item> What country is #7 pointing too</item>
+        <item> What country is #8 pointing too</item>
+        <item> What country is #9 pointing too</item>
+        <item> What country is #10 pointing too</item>
+        <item> What country is #11 pointing too</item>
+        <item> What country is #12 pointing too</item>
+        <item> What country is #13 pointing too</item>
+        <item> What country is #14 pointing too</item>
+        <item> What country is #15 pointing too</item>
+        <item> What country is #16 pointing too</item>
+        <item> What country is #17 pointing too</item>
+        <item> What country is #18 pointing too</item>
+        <item> What country is #19 pointing too</item>
+        <item> What country is #20 pointing too</item>
+        <item> What country is #21 pointing too</item>
+        <item> What country is #22 pointing too</item>
+        <item> What country is #23 pointing too</item>
+        <item> What country is #24 pointing too</item>
+        <item> What country is #25 pointing too</item>
+        <item> What country is #26 pointing too</item>
+        <item> What country is #27 pointing too</item>
+        <item> What country is #28 pointing too</item>
+    </string-array>
+</resources>
