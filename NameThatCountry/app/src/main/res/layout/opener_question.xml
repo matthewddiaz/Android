@@ -14,7 +14,7 @@
         android:text="@string/welcome_text"
         android:textColor="#ff000000"
         android:layout_marginTop="30dp"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:textAllCaps="true"
         android:gravity="center"
@@ -26,69 +26,117 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="#ffffa03a"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/welcome_q_text"
         />
 
-    <Button
-        android:id="@+id/option_1"
-        android:layout_margin="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_design"
-        android:layout_gravity="center"
-        android:text="@string/continent1"
-        android:onClick="option1_handler"
-        />
 
-    <Button
-        android:id="@+id/option_2"
-        android:layout_margin="6dp"
-        android:layout_width="wrap_content"
+    <!-- Added View for equal spacing between the buttons!-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_design"
-        android:layout_gravity="center"
-        android:text="@string/continent2"
-        android:onClick="option2_handler"
-        />
+        >
 
-    <!--Designed own button shape which background uses -->
-    <Button
-        android:id="@+id/option_3"
-        android:layout_margin="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_design"
-        android:layout_gravity="center"
-        android:text="@string/continent3"
-        android:onClick="option3_handler"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+
+        <Button
+            android:id="@+id/option_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:text="@string/continent1"
+            android:onClick="option1_handler"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/option_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:text="@string/continent2"
+            android:onClick="option2_handler"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+        <!--Designed own button shape which background uses -->
+        <Button
+            android:id="@+id/option_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:text="@string/continent3"
+            android:onClick="option3_handler"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
     />
 
-    <Button
-        android:id="@+id/option_4"
-        android:layout_margin="6dp"
-        android:layout_width="wrap_content"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_design"
-        android:layout_gravity="center"
-        android:text="@string/continent4"
-        android:onClick="option4_handler"
-        />
+        >
 
-    <!-- Padding is for how big you want the button-->
-    <!-- Margin is for much space you want between buttons-->
-    <Button
-        android:id="@+id/option_5"
-        android:layout_margin="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_design"
-        android:layout_gravity="center"
-        android:text="@string/continent5"
-        android:onClick="option5_handler"
-        />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/option_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:text="@string/continent4"
+            android:onClick="option4_handler"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+        <!-- Padding is for how big you want the button-->
+        <!-- Margin is for much space you want between buttons-->
+        <Button
+            android:id="@+id/option_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_design"
+            android:text="@string/continent5"
+            android:onClick="option5_handler"
+           />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/creator"
         android:layout_width="wrap_content"
@@ -96,7 +144,7 @@
         android:textColor="#008b46"
         android:textStyle="bold"
         android:text="@string/creator_text"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="130dp"
 
         />
 </LinearLayout>
