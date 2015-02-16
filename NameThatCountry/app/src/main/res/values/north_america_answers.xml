@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="north_america_answers_list">
+        <item>United States</item>
+        <item>Canada</item>
+        <item>Greenland</item>
+        <item>Mexico</item>
+        <item>Cuba</item>
+        <item>Jamaica</item>
+        <item>Haiti</item>
+        <item>Dominican Republic</item>
+        <item>Belize</item>
+        <item>Guatemala</item>
+        <item>Honduras</item>
+        <item>El Salvador</item>
+        <item>Nicaragua</item>
+        <item>Costa Rica</item>
+        <item>Panama</item>
+    </string-array>
+</resources>

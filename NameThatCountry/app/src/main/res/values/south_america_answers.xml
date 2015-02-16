@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="south_america_answer_list">
+    <string-array name="south_america_answers_list">
         <item> Brazil</item>
         <item> Bolivia </item>
         <item> Paraguay </item>

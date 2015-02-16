@@ -68,14 +68,20 @@ public class Opener extends ActionBarActivity {
 
     }
     public void option4_handler(View view){
-
+        Intent intent = new Intent(this, Countries.class);
+        int[] north_america_ids= new int[3];
+        north_america_ids[0] = R.drawable.north_america;
+        north_america_ids[1] = R.array.north_america_list;
+        north_america_ids[2] = R.array.north_america_answers_list;
+        intent.putExtra("continent",north_america_ids);
+        startActivity(intent);
     }
     public void option5_handler(View view){
         Intent intent = new Intent(this, Countries.class);
         int[] south_america_ids= new int[3];
         south_america_ids[0] = R.drawable.south_america;
         south_america_ids[1] = R.array.south_america_list;
-        south_america_ids[2] = R.array.south_america_answer_list;
+        south_america_ids[2] = R.array.south_america_answers_list;
         intent.putExtra("continent",south_america_ids);
         startActivity(intent);
     }
