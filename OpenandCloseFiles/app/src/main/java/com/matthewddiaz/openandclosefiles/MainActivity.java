@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -17,20 +20,25 @@ import java.io.OutputStreamWriter;
 
 
 public class MainActivity extends Activity {
-    private TextView mInputVal;
+    private TextView mText;
+    private EditText mUserInput;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mInputVal = (TextView)findViewById(R.id.hey);
+        mText = (TextView)findViewById(R.id.text);
+        mUserInput = (EditText)findViewById(R.id.userInput);
+    }
 
+    public void button_handler(View v){
+        String val = mUserInput.getText().toString();
         String file = "myfile.txt";
         try {
             FileOutputStream outputStream = openFileOutput(file,MODE_PRIVATE);
             BufferedWriter writer = new BufferedWriter((new OutputStreamWriter(outputStream,"UTF-8")));
-            String string = "My name is Matthew Diaz";
-            writer.write(string);
+            writer.write(val);
             writer.close();
         }catch(Exception e){
             e.printStackTrace();
@@ -39,7 +47,7 @@ public class MainActivity extends Activity {
             FileInputStream fis = openFileInput( file );
             BufferedReader reader = new BufferedReader((new InputStreamReader(fis,"UTF-8")));
             String ans = reader.readLine();
-            mInputVal.setText(ans);
+            mText.setText(ans);
             reader.close();
 
         } catch (FileNotFoundException e) {
@@ -47,7 +55,6 @@ public class MainActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
 
