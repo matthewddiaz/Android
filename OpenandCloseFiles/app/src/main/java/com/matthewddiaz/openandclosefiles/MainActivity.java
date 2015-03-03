@@ -58,8 +58,8 @@ public class MainActivity extends Activity {
             program to crash!
             You can't modify views from non-UI thread.*/
             public void run(){
-                String ans = String.valueOf(seconds);
-                mText.setText(ans);
+                String time = String.valueOf(seconds);
+                mText.setText("Your file will open in " + time + " seconds");
             }
         };
         runOnUiThread(UIdoWork);
@@ -100,14 +100,14 @@ public class MainActivity extends Activity {
     private class CounterThread extends Thread{
         int count;
         public void run(){
-            count = 0;
-            while(count != 10){
+            count = 10;
+            while(count != 0){
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
-                updateSeconds(++count);
+                updateSeconds(count--);
             }
         }
     }
@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
         public void run(){
 
             try{
-                sleep(11000);
+                sleep(11000);//will make this thread wait 11 seconds until it actually does its work!
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
