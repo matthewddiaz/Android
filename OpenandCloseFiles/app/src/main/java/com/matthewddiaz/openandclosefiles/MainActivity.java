@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 public class MainActivity extends Activity {
     private TextView mText;
     private EditText mUserInput;
+    private CounterThread mThread;
 
 
     @Override
@@ -30,6 +31,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mText = (TextView)findViewById(R.id.text);
         mUserInput = (EditText)findViewById(R.id.userInput);
+        startThread();
+    }
+
+    public void startThread(){
+        mThread = new CounterThread();
+        mThread.start();
     }
 
     public void button_handler(View v){
@@ -57,6 +64,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    public void updateAnswers(final long seconds){
+        Runnable UIdoWork = new Runnable(){/*need to but anything that changes view make UI thread work.
+            since the Worker thread called updateAnswers with RunOnUIThread, the worker
+            thread would be the one executing the code mText.setText(ans) which causes the
+            program to crash!
+            You can't modify views from non-UI thread.*/
+            public void run(){
+                String ans = String.valueOf(seconds);
+                mText.setText(ans);
+            }
+        };
+        runOnUiThread(UIdoWork);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -78,5 +98,20 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class CounterThread extends Thread{
+        int count;
+        public void run(){
+            count = 0;
+            while(count != 10){
+                try{
+                    Thread.sleep(1000);
+                }catch(InterruptedException e){
+                    e.printStackTrace();
+                }
+                updateAnswers(++count);
+            }
+        }
     }
 }
