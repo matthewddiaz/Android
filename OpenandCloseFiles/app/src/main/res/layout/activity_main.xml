@@ -30,10 +30,13 @@
         android:layout_below="@+id/enterButton"
         />
 
+    <!--android:freezeText allows the String value set to persist across orientation-->
     <TextView
         android:id="@+id/text"
+        android:textSize="40sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:freezesText="true"
         android:text="@string/hello_world"
         android:layout_below="@+id/space"
         />
