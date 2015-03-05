@@ -32,31 +32,49 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         mText = (TextView)findViewById(R.id.text);
         mUserInput = (EditText)findViewById(R.id.userInput);
+        mCounterThread = new CounterThread();
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(mCounterThread != null){//should only pause mCounterThread if it exists!
+            mCounterThread.onPause();
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if(mCounterThread != null){//should only resume mCounterThread if it exists!
+            mCounterThread.onResume();
+        }
     }
 
     public void startCounterThread(){
-        mCounterThread = new CounterThread();
         mCounterThread.start();
     }
 
-    public void startMakingFileThread(String s1,String s2){
+    public void MakeFileThread(String s1,String s2){
         mFileThread = new MakingFileThread(s1,s2);
-        mFileThread.start();
     }
 
     public void button_handler(View v){
         String val = mUserInput.getText().toString();
-        startCounterThread();
+        if(mCounterThread == null){
+            mCounterThread = new CounterThread();
+        }
         String file = "myfile.txt";
-        startMakingFileThread(val,file);
-       }
+        MakeFileThread(val, file);
+        startCounterThread();
+    }
 
+    /*Anything that changes View has to be made by the UI thread(Main thread). Since the Worker
+     thread called updateAnswers you have to use RunOnUIThread or else the worker thread would
+     execute the line mText.setText(ans) which causes the program to crash! You can't modify views
+     from non-UI thread aka (Main Thread) .*/
     public void updateSeconds(final long seconds){
-        Runnable UIdoWork = new Runnable(){/*need to but anything that changes view make UI thread work.
-            since the Worker thread called updateAnswers with RunOnUIThread, the worker
-            thread would be the one executing the code mText.setText(ans) which causes the
-            program to crash!
-            You can't modify views from non-UI thread.*/
+        Runnable UIdoWork = new Runnable(){
             public void run(){
                 String time = String.valueOf(seconds);
                 mText.setText("Your file will open in " + time + " seconds");
@@ -64,7 +82,6 @@ public class MainActivity extends Activity {
         };
         runOnUiThread(UIdoWork);
     }
-
 
     public void updateWriteFile(final String userText){
         Runnable UIdoWork = new Runnable(){
@@ -75,47 +92,60 @@ public class MainActivity extends Activity {
         runOnUiThread(UIdoWork);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private class CounterThread extends Thread{
+        private int count = 10;
+        private final Object lock = new Object();//creating an object to  synchronize on!
+        private volatile boolean isRunning = true;
+        /*"volatile keyword is also used to communicate content of memory between threads."
+        lock is synchronized inside of both onResume and run method! If isRunning boolean variable
+         turns false due to onPause() then inside of the synchronized block the program will run
+         until it reaches the line lock.wait() where it releases the lock and also waits until
+         notify() is called. notify() is called when onResume() method is called setting isRunning
+         to true first and then performing lock.notify() which also lock.wait() to end and the thread
+         to continue performing its task!
+         */
+        public void onResume(){
+            if(!isRunning){
+                isRunning = true;
+            }
+            synchronized (lock){
+                lock.notify();
+            }
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+        public void onPause(){
+            isRunning = false;
+        }
 
-    private class CounterThread extends Thread{
-        int count;
-        public void run(){
-            count = 10;
+
+        @Override
+        public synchronized void run(){
             while(count != 0){
+                synchronized (lock){
+                    if(!isRunning)try{
+                        lock.wait();
+                    }catch(InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+
                 try{
                     Thread.sleep(1000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
                 updateSeconds(count--);
-            }
+             }
+            mFileThread.start();//once the countdown is complete start mFileThread
+            mCounterThread = null;/*once the Thread is complete I set this thread to null
+            so that when I press the handler again a new open will get created!
+            */
         }
     }
 
     private class MakingFileThread extends Thread{
-        String userInput;
-        String fileName;
-
+        private String userInput;
+        private String fileName;
         public MakingFileThread(String s1,String s2){
             userInput = s1;
             fileName = s2;
@@ -125,7 +155,7 @@ public class MainActivity extends Activity {
         public void run(){
 
             try{
-                sleep(11000);//will make this thread wait 11 seconds until it actually does its work!
+                sleep(1000);//will make this thread wait 1 seconds after mCounterThread is done!
             }
             catch(InterruptedException e) {
                 e.printStackTrace();
