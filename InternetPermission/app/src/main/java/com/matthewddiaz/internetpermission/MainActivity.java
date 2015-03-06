@@ -8,6 +8,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedReader;
@@ -41,27 +42,28 @@ public class MainActivity extends Activity {
     }
 
     public void updateAnswer(boolean ans){
-        final String text;
+        final int num;
         if(ans == true){
-            text = "true!";
-        }
+            num = R.drawable.jesusagrees;//Android treats R variables as int can pass
+        }//to makeToast
         else{
-            text = "false";
+            num = R.drawable.dontdoit;
         }
         Runnable UIdoWork = new Runnable() {
             @Override
             public void run() {
-                makeToast(text);
+                makeToast(num);
             }
         };
         runOnUiThread(UIdoWork);
     }
 
 
-    public void makeToast(CharSequence text){
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context,text,duration);
+    public void makeToast(int imageNum){//making a toast that displays an image which is stored
+        Toast toast  = new Toast(this);//in drawable file
+        ImageView view = new ImageView(this);//Have to create an Image View
+        view.setImageResource(imageNum);//set the view to the image
+        toast.setView(view);
         toast.show();
     }
 
@@ -78,14 +80,14 @@ public class MainActivity extends Activity {
         public void run(){
             try{
                 URL readingWeb = new URL(url);
-                try{
+                try{//This BufferedReader that reads in a URL needs to be in a thread since it clog UI thread!
                     BufferedReader in = new BufferedReader(new InputStreamReader(readingWeb.openStream()));
                     String line;
-                    while ((line = in.readLine()) != null) {
-                        if(line.contains("tiger")){
-                            is_word_there = true;
+                    while ((line = in.readLine()) != null) {//readLine gets a string of the line
+                        if(line.contains("tiger")){//and then removes the string from the bufferedReader
+                            is_word_there = true;//while do this until no more string lines are left
                             break;
-                        }
+                        }//contains is a string method that checks if that certain word is there or not!
                     }
                 }catch(IOException e){
                     e.printStackTrace();
