@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
 
@@ -98,6 +99,13 @@ public class MainActivity extends Activity {
             url = user_url;
         }
 
+
+
+        /*Inside of the if statement I use Java's Pattern class which works with Java's match pattern
+        apparently it is more efficent than using String contains for long texts! .CASE_INSENSITIVE
+        means that tiger or Tiger will still show as true!.
+        */
+
         @Override
         public void run(){
             try{
@@ -106,7 +114,7 @@ public class MainActivity extends Activity {
                     BufferedReader in = new BufferedReader(new InputStreamReader(readingWeb.openStream()));
                     String line;
                     while ((line = in.readLine()) != null) {//readLine gets a string of the line
-                        if(line.contains("tiger")){//and then removes the string from the bufferedReader
+                        if(Pattern.compile(Pattern.quote(line), Pattern.CASE_INSENSITIVE).matcher("tiger").find()){//and then removes the string from the bufferedReader
                             is_word_there = true;//while do this until no more string lines are left
                             break;
                         }//contains is a string method that checks if that certain word is there or not!
