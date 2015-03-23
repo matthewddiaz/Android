@@ -75,10 +75,10 @@ public class MainActivity extends Activity {
     public void updateAnswer(boolean ans,String urlSite){
         final int num;
         if(ans == true){
-            num = R.drawable.jesusagrees;//Android treats R variables as int can pass
+            num = R.drawable.found;//Android treats R variables as int can pass
         }//to makeToast
         else{
-            num = R.drawable.dontdoit;
+            num = R.drawable.not_found;
         }
         Runnable UIdoWork = new Runnable() {
             @Override
