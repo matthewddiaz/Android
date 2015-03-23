@@ -1,6 +1,7 @@
 package com.matthewddiaz.internetpermission;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -20,17 +21,19 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
 
-    private EditText mInputVal;
+    private EditText mInputURL;
+    private EditText mInputTerm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mInputVal = (EditText) findViewById(R.id.user_text);
+        mInputURL = (EditText) findViewById(R.id.user_url_input);
+        mInputTerm = (EditText) findViewById(R.id.user_term_input);
     }
 
-    public void startReaderThread(String user_input){
-        ReaderThread mThreadRead = new ReaderThread(user_input);//creates new ReaderThread
+    public void startReaderThread(String user_url_input,String user_term_input){
+        ReaderThread mThreadRead = new ReaderThread(user_url_input,user_term_input);//creates new ReaderThread
         mThreadRead.start();
     }
 
@@ -40,8 +43,25 @@ public class MainActivity extends Activity {
     }
 
     public void enter_handler(View view){
-        String url = mInputVal.getText().toString();//gets user input from EditText variable
-        startReaderThread(url);
+        String url = mInputURL.getText().toString();//gets user url input from EditText variable
+        String term = mInputTerm.getText().toString();//gets user term input
+        if(checkValidInput(url,term)){
+            errorToast("Please input a URL and a term");
+        }else{
+            startReaderThread(url,term);
+        }
+    }
+
+    private void errorToast(CharSequence text){
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast= Toast.makeText(context,text,duration);
+        toast.show();
+
+    }
+
+    private boolean checkValidInput(String url,String term){
+        return (url.equals("") || term.equals(""));
     }
 
     public void makeToast(int imageNum){//making a toast that displays an image which is stored
@@ -78,7 +98,7 @@ public class MainActivity extends Activity {
         final Intent intent = new Intent(Intent.ACTION_VIEW,site);
         PackageManager pm = getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(intent,0);//checking if app is able
-        final boolean safe = activities.size() > 0;//to oepn link with its given resources
+        final boolean safe = activities.size() > 0;//to open link with its given resources
         Runnable UIdoWork = new Runnable() {
             @Override
             public void run() {
@@ -92,11 +112,13 @@ public class MainActivity extends Activity {
 
     public class ReaderThread extends Thread{
         private String url;
+        private String term;
         private boolean is_word_there = false;
 
 
-        public ReaderThread(String user_url){
+        public ReaderThread(String user_url,String user_term){
             url = user_url;
+            term = user_term;
         }
 
 
@@ -112,9 +134,9 @@ public class MainActivity extends Activity {
                 URL readingWeb = new URL(url);
                 try{//This BufferedReader that reads in a URL needs to be in a thread since it clog UI thread!
                     BufferedReader in = new BufferedReader(new InputStreamReader(readingWeb.openStream()));
-                    String line;
-                    while ((line = in.readLine()) != null) {//readLine gets a string of the line
-                        if(Pattern.compile(Pattern.quote(line), Pattern.CASE_INSENSITIVE).matcher("tiger").find()){//and then removes the string from the bufferedReader
+                    String line;//the if statement below uses matcher class to check if the term is in the url site.
+                    while ((line = in.readLine()) != null) {//the .* means that anything can come before or after this word
+                        if(line.matches(".*" + term + ".*")){//and then removes the string from the bufferedReader
                             is_word_there = true;//while do this until no more string lines are left
                             break;
                         }//contains is a string method that checks if that certain word is there or not!

@@ -2,7 +2,9 @@
     <string name="title_activity_internet">InternetActivity</string>
     <string name="app_name">InternetPermission</string>
     <string name="action_settings">Settings</string>
+    <string name="url_text">URL Site</string>
+    <string name="term_text">Term</string>
     <string name="url_val">Please enter the URL</string>
-    <string name="enter">Press!</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="enter">Search!</string>
+    <string name="term_val">Enter term you are searching for</string>
 </resources>
