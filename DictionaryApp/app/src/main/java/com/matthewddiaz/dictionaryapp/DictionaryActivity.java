@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,8 +22,7 @@ public class DictionaryActivity extends Activity {
         mDictionary = new DictionaryDAO(this);
     }
 
-    public void getButtonOnClick(View view){
-        String term = mTerm.getText().toString();
+    private void getTerm(String term){
         Cursor cursor = mDictionary.fetchAllEntries();//creating a cursor that will iterate through
         boolean isWordHere = false;//the sqlite database
         String definition = "";
@@ -40,13 +36,12 @@ public class DictionaryActivity extends Activity {
             cursor.moveToNext();
         }
         mDefinition.setText(definition);//set the definition to the given definition
-        if(isWordHere == false){//if the term is not in the database then Term is not defined
-            toastMessage("Term is not defined");//is displayed
+        if(!isWordHere){//if the term is not in the database then Term is not defined
+            toastMessage(term + " is not defined");//is displayed
         }
     }
-    public void updateButtonOnClick(View view){
-        String term = mTerm.getText().toString();
-        String definition = mDefinition.getText().toString();
+
+    private void updateTerm(String term,String definition){
         Cursor cursor = mDictionary.fetchAllEntries();
         boolean isWordHere = false;
         while(!cursor.isAfterLast()) {
@@ -58,26 +53,25 @@ public class DictionaryActivity extends Activity {
             cursor.moveToNext();
         }
         //if the word is to in the database it means that it's a new term
-        if(isWordHere == false){//for new terms the user needs to input a term with a definition
-            CharSequence text = "";//those the fuction checkingValudAddition checks for the requirements
+        if(!isWordHere){//for new terms the user needs to input a term with a definition
+            CharSequence text;//those the fuction checkingValudAddition checks for the requirements
             boolean isValid = checkingValidAddition(term,definition);
-            if(isValid == true){
+            if(!isValid){
                 mDictionary.createDictionaryEntry(term,definition);
-                text = "Term was added successfully";
+                text = term + " was added successfully";
             }
             else{
-                text = "Error term was not added";
+                text = "Error: " +  term + " was not added";
             }
             toastMessage(text);
         }
         else{//if Term already exists then a update is done instead
             mDictionary.updateDictionaryEntry(term,definition);
-            toastMessage("Term was updated successfully");
+            toastMessage(term + " was updated successfully");
         }
     }
 
-    public void deleteButtonOnClick(View view){
-        String term = mTerm.getText().toString();
+    private void deleteTerm(String term){
         Cursor cursor = mDictionary.fetchAllEntries();
         boolean isWordHere = false;
         while(!cursor.isAfterLast()){
@@ -88,22 +82,37 @@ public class DictionaryActivity extends Activity {
             }
             cursor.moveToNext();
         }
-        String text = "";
-        if(isWordHere == true){//if true then delete the Term and its definition from the database
-           mDictionary.deleteDictionaryEntry(term);
-           text = "Term was deleted successfully";
+        String text;
+        if(isWordHere){//if true then delete the Term and its definition from the database
+            mDictionary.deleteDictionaryEntry(term);
+            text = term + " was deleted successfully";
         }
         else{//if the word is not in the database display a toast stating that the term was not
-            text = "Term is not defined";//defined before and so couldn't be deleted
+            text = term + " is not defined";//defined before and so couldn't be deleted
         }
         toastMessage(text);
     }
 
+    public void getButtonOnClick(View view){
+        String term = mTerm.getText().toString();
+        getTerm(term);
+
+    }
+    public void updateButtonOnClick(View view){
+        String term = mTerm.getText().toString();
+        String definition = mDefinition.getText().toString();
+        updateTerm(term,definition);
+
+    }
+
+    public void deleteButtonOnClick(View view){
+        String term = mTerm.getText().toString();
+        deleteTerm(term);
+
+    }
+
     private boolean checkingValidAddition(String term,String definition){
-        if(term.equals("") || definition.equals("")){
-            return false;
-        }
-        return true;
+        return (term.equals("") || definition.equals(""));
     }
 
     private void toastMessage(CharSequence text){//method that creates toast accepts a string
