@@ -22,7 +22,18 @@ public class DictionaryActivity extends Activity {
         mDictionary = new DictionaryDAO(this);
     }
 
-    private void getTerm(String term){
+    //this fuction creates a new DictionaryThread and little thread with .start()
+    public void startDictionaryThread(boolean userChoice,String term){
+        DictionaryThread dictionaryThread = new DictionaryThread(userChoice,term);
+        dictionaryThread.start();
+    }
+
+    public void startDictionaryThread(String term,String definition){
+        DictionaryThread dictionaryThread = new DictionaryThread(term,definition);
+        dictionaryThread.start();
+    }
+
+    private void getTerm(final String term){
         Cursor cursor = mDictionary.fetchAllEntries();//creating a cursor that will iterate through
         boolean isWordHere = false;//the sqlite database
         String definition = "";
@@ -35,10 +46,20 @@ public class DictionaryActivity extends Activity {
             }
             cursor.moveToNext();
         }
-        mDefinition.setText(definition);//set the definition to the given definition
-        if(!isWordHere){//if the term is not in the database then Term is not defined
-            toastMessage(term + " is not defined");//is displayed
-        }
+
+        final String def = definition;//these two variables where created since the values
+        final boolean inDictionary = isWordHere;//that run in the Runnable need to be final
+
+        Runnable UIdoWork = new Runnable(){
+            @Override
+            public void run(){
+                mDefinition.setText(def);//set the definition to the given definition
+                if(!inDictionary){//if the term is not in the database then Term is not defined
+                    toastMessage(term + " is not defined");//is displayed
+                }
+            }
+        };
+        runOnUiThread(UIdoWork);
     }
 
     private void updateTerm(String term,String definition){
@@ -52,23 +73,31 @@ public class DictionaryActivity extends Activity {
             }
             cursor.moveToNext();
         }
-        //if the word is to in the database it means that it's a new term
+        //if the word is not in the database it means that it's a new term
+        String message = "";
         if(!isWordHere){//for new terms the user needs to input a term with a definition
             CharSequence text;//those the fuction checkingValudAddition checks for the requirements
             boolean isValid = checkingValidAddition(term,definition);
             if(!isValid){
                 mDictionary.createDictionaryEntry(term,definition);
-                text = term + " was added successfully";
+                message = term + " was added successfully";
             }
             else{
-                text = "Error: " +  term + " was not added";
+                message = "Error: " +  term + " was not added";
             }
-            toastMessage(text);
         }
         else{//if Term already exists then a update is done instead
             mDictionary.updateDictionaryEntry(term,definition);
-            toastMessage(term + " was updated successfully");
+            message = term + " was updated successfully";
         }
+        final String actionMessage = message;
+        Runnable UIdoWork = new Runnable(){
+            @Override
+            public void run(){
+                toastMessage(actionMessage);
+            }
+        };
+        runOnUiThread(UIdoWork);
     }
 
     private void deleteTerm(String term){
@@ -90,24 +119,30 @@ public class DictionaryActivity extends Activity {
         else{//if the word is not in the database display a toast stating that the term was not
             text = term + " is not defined";//defined before and so couldn't be deleted
         }
-        toastMessage(text);
+        final String message = text;
+        Runnable UIdoWork = new Runnable(){
+            @Override
+            public void run(){
+                toastMessage(message);
+            }
+        };
+        runOnUiThread(UIdoWork);
     }
 
     public void getButtonOnClick(View view){
         String term = mTerm.getText().toString();
-        getTerm(term);
-
+        startDictionaryThread(false,term);
     }
     public void updateButtonOnClick(View view){
         String term = mTerm.getText().toString();
         String definition = mDefinition.getText().toString();
-        updateTerm(term,definition);
+        startDictionaryThread(term,definition);
 
     }
 
     public void deleteButtonOnClick(View view){
         String term = mTerm.getText().toString();
-        deleteTerm(term);
+        startDictionaryThread(true,term);
 
     }
 
@@ -121,5 +156,38 @@ public class DictionaryActivity extends Activity {
         Toast toast = Toast.makeText(context,text,duration);
         toast.show();
     }
+
+    private class DictionaryThread extends Thread{
+        private boolean remove_true;
+        private String term;
+        private String definition;
+
+        //this constructor is called when the update method is used.
+        public DictionaryThread(boolean userChoice,String term){
+            remove_true = userChoice;
+            this.term = term;
+        }
+
+        public DictionaryThread(String term,String definition){
+            this.term = term;
+            this.definition = definition;
+        }
+
+
+        @Override
+        public void run(){
+            if(definition != null) {
+                updateTerm(term,definition);
+            }
+            else if(remove_true){
+                  deleteTerm(term);
+            }
+            else{
+                 getTerm(term);
+            }
+
+        }
+    }
+
 
 }
