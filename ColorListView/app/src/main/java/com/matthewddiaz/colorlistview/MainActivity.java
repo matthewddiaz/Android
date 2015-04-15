@@ -13,30 +13,61 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends ActionBarActivity {
-    private ListView list;
-    ColorMaker c1 = new ColorMaker(100f,.1f,.5f);
-    ColorMaker c2 = new ColorMaker(270f,.9f,.6f);
-    int color1 = c1.makeColor();
-    int color2 = c2.makeColor();
-    GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{color1,color2});
+    private ListView mList;
+    private List<GradientDrawable> mDrawableList;
+    private ColorAdapter mAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        list = (ListView)findViewById(R.id.List);
+        mList = (ListView)findViewById(R.id.List);
         populateList();
-        registerClickCallback();
+    }
+
+    public void makingGradients(float maxS,float leastS,int lVLength){
+        if(mDrawableList == null){
+            mDrawableList = new ArrayList<GradientDrawable>();
+        }
+
+        ColorMaker c1;
+        ColorMaker c2;
+
+        float interval =  maxS - leastS;
+        float range = interval/lVLength;
+        float cSat = leastS;
+
+        GradientDrawable drawable;
+        int leftColor;
+        int rightColor;
+        for(int i = 0; i != lVLength;++i){
+           float s1 = cSat;
+           cSat += range;
+           c1 = new ColorMaker(s1,1.0f,1.0f);
+           c2 = new ColorMaker(cSat,1.0f,1.0f);
+
+           leftColor = c1.makeColor();
+           rightColor = c2.makeColor();
+
+           drawable = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{leftColor,rightColor});
+           mDrawableList.add(drawable);
+        }
     }
 
     public void populateList(){
-        String[] colorList = {"blue","red","green","purple","white"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.color,colorList);
-        list.setAdapter(adapter);
+        makingGradients(345.0f,15.0f,11);
+        if(mAdapter == null){
+           mAdapter = new ColorAdapter(this,mDrawableList);
+        }
+        mList.setAdapter(mAdapter);
     }
 
+    /*
     public void registerClickCallback(){
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -48,5 +79,5 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(MainActivity.this,message,Toast.LENGTH_LONG).show();
             }
         });
-    }
+    }*/
 }
