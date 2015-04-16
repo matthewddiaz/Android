@@ -16,10 +16,10 @@ import java.util.List;
 /**
  * Created by matthew on 4/15/15.
  */
-public class ColorAdapter extends ArrayAdapter<GradientDrawable> {
-    private final List<GradientDrawable> drawableList;
+public class ColorAdapter extends ArrayAdapter<ColorGD> {
+    private final List<ColorGD> drawableList;
 
-    public ColorAdapter(Context context,List<GradientDrawable> objects ){
+    public ColorAdapter(Context context,List<ColorGD> objects ){
         super(context,0,objects);
         drawableList = objects;
     }
