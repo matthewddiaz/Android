@@ -47,7 +47,6 @@ public class ColorListFragment extends ListFragment {
                 FragmentTransaction transaction = manager.beginTransaction();
                 transaction.replace(R.id.container,sLF);
                 transaction.addToBackStack(null);
-                //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 transaction.commit();
             }
         });
