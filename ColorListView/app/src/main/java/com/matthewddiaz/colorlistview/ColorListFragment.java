@@ -1,6 +1,8 @@
 package com.matthewddiaz.colorlistview;
 
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 
 import android.graphics.drawable.GradientDrawable;
@@ -9,15 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ColorListFragment extends ListFragment implements OnItemClickListener{
-    private List<ColorGD> mDrawableList;
-    private List<ColorGD> mDrawableList2;
-
+public class ColorListFragment extends ListFragment {
+    private List<ColorGD> mDrawableList = null;
     private ColorAdapter mAdapter = null;
 
     @Override
@@ -28,9 +27,30 @@ public class ColorListFragment extends ListFragment implements OnItemClickListen
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
+
         super.onActivityCreated(savedInstanceState);
-        populateList();
-        getListView().setOnItemClickListener(this);
+            populateList();
+            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ColorGD viewItem = mDrawableList.get(position);
+                float[] hues = {viewItem.getColor(0),viewItem.getColor(1)};
+
+                Bundle args = new Bundle();
+                final String hueValues = "hues";
+                args.putFloatArray(hueValues,hues);
+
+                SaturationListFragment sLF = new SaturationListFragment();
+                sLF.setArguments(args);
+
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.replace(R.id.container,sLF);
+                transaction.addToBackStack(null);
+                //transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                transaction.commit();
+            }
+        });
     }
 
     public void makingGradients(float minH,int lVLength){
@@ -65,36 +85,6 @@ public class ColorListFragment extends ListFragment implements OnItemClickListen
         }
     }
 
-    public void makingSaturation(float leftHue,float rightHue,int lVLength){
-        float maxVal = 1.0f;//Saturation ranges from [0f - 1.0f]
-        mDrawableList2  = new ArrayList<ColorGD>();
-
-        ColorMaker c1;
-        ColorMaker c2;
-
-        float range = maxVal/lVLength;
-        float cSat = maxVal;
-
-        ColorGD drawable;
-        int leftColor;
-        int rightColor;
-        for(int i = 0; i != lVLength;++i){
-            float leftSat = cSat;
-            cSat = leftSat - range;//the right side is the left side + range. Just in case modulo 360!
-
-            c1 = new ColorMaker(leftHue,leftSat,1.0f);
-            c2 = new ColorMaker(rightHue,cSat,1.0f);
-
-            leftColor = c1.makeColor();
-            rightColor = c2.makeColor();
-
-            drawable = new ColorGD(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{leftColor,rightColor});
-            mDrawableList2.add(drawable);
-        }
-    }
-
-
-
     public void populateList(){
         makingGradients(345.0f,12);
         if(mAdapter == null){
@@ -103,15 +93,5 @@ public class ColorListFragment extends ListFragment implements OnItemClickListen
         setListAdapter(mAdapter);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent,View view,int position,long id){
-        ColorGD item = mDrawableList.get(position);
-        float leftHue = item.getColor(0);
-        float rightHue = item.getColor(1);
-        makingSaturation(leftHue, rightHue, 10);
-
-        mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList2);
-        setListAdapter(mAdapter);
-    }
 
 }
