@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:text="@string/hue_des"
         android:layout_margin="10dp"
-        android:textSize="35sp"
+        android:textColor="#000000"
+        android:textSize="30sp"
         />
 
     <TextView
@@ -19,7 +20,8 @@
         android:layout_height="wrap_content"
         android:text="@string/sat_des"
         android:layout_margin="10dp"
-        android:textSize="35sp"
+        android:textColor="#000000"
+        android:textSize="30sp"
         />
 
     <TextView
@@ -28,7 +30,8 @@
         android:layout_height="wrap_content"
         android:text="@string/val_des"
         android:layout_margin="10dp"
-        android:textSize="35sp"
+        android:textColor="#000000"
+        android:textSize="30sp"
         />
 
 </LinearLayout>

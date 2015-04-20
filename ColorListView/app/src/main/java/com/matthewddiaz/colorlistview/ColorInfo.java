@@ -41,10 +41,10 @@ public class ColorInfo extends Fragment{
     }
 
     public void setSaturationText(){
-        mSatInfo.setText("Saturation is at " + Float.toString(colorVals[2]) + "%");
+        mSatInfo.setText("Saturation is at " + Float.toString(colorVals[2]*100.0F) + "%");
     }
 
     public void setValueText(){
-        mValInfo.setText("Value is at " + Float.toString(colorVals[3]) + "%");
+        mValInfo.setText("Value is at " + Float.toString(colorVals[3]*100.0F) + "%");
     }
 }
