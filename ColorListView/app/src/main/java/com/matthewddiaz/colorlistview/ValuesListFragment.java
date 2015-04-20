@@ -75,18 +75,17 @@ public class ValuesListFragment extends ListFragment {
         }
     }
 
-    /*
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
-
         ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
         float[] hues = {leftHue,rightHue,currentSat,viewItem.getColor(0)};
         //the first two are the constant Hues. The latter two are the constant saturations
 
         Bundle args = new Bundle();
-        final String satValues = "saturations";
-        args.putFloatArray(satValues,hues);
+        final String colorVals = "colorVals";
+        args.putFloatArray(colorVals,hues);
 
         ColorInfo cLF = new ColorInfo();
         cLF.setArguments(args);
@@ -96,6 +95,6 @@ public class ValuesListFragment extends ListFragment {
         transaction.replace(R.id.container,cLF);
         transaction.addToBackStack(null);
         transaction.commit();
-    }*/
+    }
 
 }
