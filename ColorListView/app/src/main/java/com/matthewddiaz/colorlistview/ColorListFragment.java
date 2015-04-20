@@ -27,24 +27,12 @@ public class ColorListFragment extends ListFragment {
         return view;
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
-        ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
-        float[] hues = {viewItem.getColor(0),viewItem.getColor(1)};
-
-        Bundle args = new Bundle();
-        final String hueValues = "hues";
-        args.putFloatArray(hueValues,hues);
-
-        SaturationListFragment sLF = new SaturationListFragment();
-        sLF.setArguments(args);
-
-        FragmentManager manager = getFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.container,sLF);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    public void populateList(){
+        makingGradients(345.0f,12);
+        if(mAdapter == null){
+            mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);
+        }
+        setListAdapter(mAdapter);
     }
 
     public void makingGradients(float minH,int lVLength){
@@ -73,19 +61,29 @@ public class ColorListFragment extends ListFragment {
             rightColor = c2.makeColor();
 
             drawable = new ColorGD(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{leftColor,rightColor});
-            drawable.setColors(0,leftHue);
-            drawable.setColors(1,cHue);
+            drawable.setColors(0,leftHue);//saving the left hue
+            drawable.setColors(1,cHue);//saving the right hue
             mDrawableList.add(drawable);
         }
     }
 
-    public void populateList(){
-        makingGradients(345.0f,12);
-        if(mAdapter == null){
-            mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);
-        }
-        setListAdapter(mAdapter);
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
+        ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
+        float[] hues = {viewItem.getColor(0),viewItem.getColor(1)};
+
+        Bundle args = new Bundle();
+        final String hueValues = "hues";
+        args.putFloatArray(hueValues,hues);
+
+        SaturationListFragment sLF = new SaturationListFragment();
+        sLF.setArguments(args);
+
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.container,sLF);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
-
-
 }

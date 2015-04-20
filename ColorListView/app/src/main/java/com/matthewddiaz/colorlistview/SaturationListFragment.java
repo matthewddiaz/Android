@@ -1,30 +1,36 @@
 package com.matthewddiaz.colorlistview;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-
+import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by matthew on 4/19/15.
  */
-public class SaturationListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+public class SaturationListFragment extends ListFragment {
     private List<ColorGD> mDrawableList = null;
     private ColorAdapter mAdapter = null;
     private float leftHue;
     private float rightHue;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_color_list, container, false);
-        super.onActivityCreated(savedInstanceState);
+        if(mAdapter == null){
+            populateList();
+        }
+        return view;
+    }
+
+    public void populateList(){
         float[] hues = getArguments().getFloatArray("hues");
         leftHue = hues[0];
         rightHue = hues[1];
@@ -33,9 +39,8 @@ public class SaturationListFragment extends ListFragment implements AdapterView.
         if(mAdapter == null){
             mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);
         }
-        setListAdapter(mAdapter);
 
-        return view;
+        setListAdapter(mAdapter);
     }
 
     public void makingSaturation(int lVLength){
@@ -64,29 +69,31 @@ public class SaturationListFragment extends ListFragment implements AdapterView.
             rightColor = c2.makeColor();
 
             drawable = new ColorGD(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{leftColor,rightColor});
+            drawable.setColors(0,leftSat);//saving the left Saturation
+            drawable.setColors(1,cSat);//saving the right Saturation
             mDrawableList.add(drawable);
         }
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent,View view,int position,long id){
-       /*The below is all wrong!
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
+        ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
+        float[] hues = {leftHue,rightHue,viewItem.getColor(0),viewItem.getColor(1)};
+        //the first two are the constant Hues. The latter two are the constant saturations
 
+        Bundle args = new Bundle();
+        final String satValues = "saturations";
+        args.putFloatArray(satValues,hues);
 
-        ColorListFragment cLF = new ColorListFragment();
+        ValuesListFragment vLF = new ValuesListFragment();
+        vLF.setArguments(args);
+
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.container,cLF,"Fragment1");
-        transaction.commit();*/
-        /*
-        ColorGD item = mDrawableList.get(position);
-        float leftHue = item.getColor(0);
-        float rightHue = item.getColor(1);
-        makingSaturation(leftHue, rightHue, 10);
-
-        mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList2);
-        setListAdapter(mAdapter);*/
+        transaction.replace(R.id.container,vLF);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
-
 
 }
