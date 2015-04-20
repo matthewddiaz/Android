@@ -40,11 +40,11 @@ public class ColorInfo extends Fragment{
         mHueInfo.setText("Hues Range from " + Float.toString(colorVals[0]) + "° to " + Float.toString(colorVals[1]) + "°");
     }
 
-    public void setSaturationText(){
-        mSatInfo.setText("Saturation is at " + Float.toString(colorVals[2]*100.0F) + "%");
+    public void setSaturationText(){//rounding the float to the nearest int then turning to a String value
+        mSatInfo.setText("Saturation is at " + Integer.toString(Math.round(colorVals[2]*100.0F)) + "%");
     }
 
     public void setValueText(){
-        mValInfo.setText("Value is at " + Float.toString(colorVals[3]*100.0F) + "%");
+        mValInfo.setText("Value is at " + Integer.toString(Math.round(colorVals[3]*100.0F)) + "%");
     }
 }
