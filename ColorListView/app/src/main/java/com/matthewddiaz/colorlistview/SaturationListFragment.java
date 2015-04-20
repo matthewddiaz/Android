@@ -58,20 +58,18 @@ public class SaturationListFragment extends ListFragment {
         ColorGD drawable;
         int leftColor;
         int rightColor;
-        for(int i = 0; i != lVLength;++i){
-            float leftSat = cSat;
-            cSat = leftSat - range;//the right side is the left side + range. Just in case modulo 360!
-
-            c1 = new ColorMaker(leftHue,leftSat,1.0f);
+        for(int i = 0; i != lVLength;++i){ //from [1.0f to 0.0f]
+            c1 = new ColorMaker(leftHue,cSat,1.0f);
             c2 = new ColorMaker(rightHue,cSat,1.0f);
 
             leftColor = c1.makeColor();
             rightColor = c2.makeColor();
 
             drawable = new ColorGD(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{leftColor,rightColor});
-            drawable.setColors(0,leftSat);//saving the left Saturation
-            drawable.setColors(1,cSat);//saving the right Saturation
+            drawable.setColors(0,cSat);//saving the current Saturation
+
             mDrawableList.add(drawable);
+            cSat -= range;//Creating the next Saturation level
         }
     }
 
@@ -79,7 +77,7 @@ public class SaturationListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
         ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
-        float[] hues = {leftHue,rightHue,viewItem.getColor(0),viewItem.getColor(1)};
+        float[] hues = {leftHue,rightHue,viewItem.getColor(0)};
         //the first two are the constant Hues. The latter two are the constant saturations
 
         Bundle args = new Bundle();

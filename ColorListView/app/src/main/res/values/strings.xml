@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">ColorListView</string>
     <string name="action_settings">Settings</string>
+    <string name="hue_des">H </string>
+    <string name="sat_des">S </string>
+    <string name="val_des">V </string>
 
 </resources>

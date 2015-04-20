@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/hue_range"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hue_des"
+        android:layout_margin="10dp"
+        android:textSize="35sp"
+        />
+
+    <TextView
+        android:id="@+id/saturation_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sat_des"
+        android:layout_margin="10dp"
+        android:textSize="35sp"
+        />
+
+    <TextView
+        android:id="@+id/value_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/val_des"
+        android:layout_margin="10dp"
+        android:textSize="35sp"
+        />
+
+</LinearLayout>
