@@ -23,11 +23,7 @@ public class SaturationListFragment extends ListFragment implements AdapterView.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_color_list, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+        View view = inflater.inflate(R.layout.fragment_color_list, container, false);
         super.onActivityCreated(savedInstanceState);
         float[] hues = getArguments().getFloatArray("hues");
         leftHue = hues[0];
@@ -38,6 +34,8 @@ public class SaturationListFragment extends ListFragment implements AdapterView.
             mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);
         }
         setListAdapter(mAdapter);
+
+        return view;
     }
 
     public void makingSaturation(int lVLength){

@@ -4,13 +4,12 @@ package com.matthewddiaz.colorlistview;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
-
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,36 +19,32 @@ public class ColorListFragment extends ListFragment {
     private ColorAdapter mAdapter = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_color_list, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_color_list, container, false);
+        if(mAdapter == null){
+            populateList();
+        }
+        return view;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState){
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);//For clicking if using ListFragment then
+        ColorGD viewItem = mDrawableList.get(position);//you can simply use its override method onListItemClick()
+        float[] hues = {viewItem.getColor(0),viewItem.getColor(1)};
 
-        super.onActivityCreated(savedInstanceState);
-            populateList();
-            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ColorGD viewItem = mDrawableList.get(position);
-                float[] hues = {viewItem.getColor(0),viewItem.getColor(1)};
+        Bundle args = new Bundle();
+        final String hueValues = "hues";
+        args.putFloatArray(hueValues,hues);
 
-                Bundle args = new Bundle();
-                final String hueValues = "hues";
-                args.putFloatArray(hueValues,hues);
+        SaturationListFragment sLF = new SaturationListFragment();
+        sLF.setArguments(args);
 
-                SaturationListFragment sLF = new SaturationListFragment();
-                sLF.setArguments(args);
-
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.container,sLF);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.container,sLF);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public void makingGradients(float minH,int lVLength){
