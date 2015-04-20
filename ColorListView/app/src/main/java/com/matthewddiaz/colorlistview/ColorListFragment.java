@@ -27,7 +27,7 @@ public class ColorListFragment extends ListFragment {
         return view;
     }
 
-    public void populateList(){
+    private void populateList(){
         makingGradients(345.0f,12);
         if(mAdapter == null){
             mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);

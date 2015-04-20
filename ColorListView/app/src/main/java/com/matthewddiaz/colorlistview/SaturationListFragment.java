@@ -30,7 +30,7 @@ public class SaturationListFragment extends ListFragment {
         return view;
     }
 
-    public void populateList(){
+    private void populateList(){
         float[] hues = getArguments().getFloatArray("hues");
         leftHue = hues[0];
         rightHue = hues[1];

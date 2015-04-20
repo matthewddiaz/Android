@@ -25,7 +25,13 @@ public class ValuesListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_color_list, container, false);
-        super.onActivityCreated(savedInstanceState);
+        if(mAdapter == null){
+            populateList();
+        }
+        return view;
+    }
+
+    private void populateList(){
         float[] satValues = getArguments().getFloatArray("saturations");
         leftHue = satValues[0];
         rightHue = satValues[1];
@@ -37,8 +43,6 @@ public class ValuesListFragment extends ListFragment {
             mAdapter = new ColorAdapter(this.getActivity() ,mDrawableList);
         }
         setListAdapter(mAdapter);
-
-        return view;
     }
 
     public void makingSaturation(int lVLength){
