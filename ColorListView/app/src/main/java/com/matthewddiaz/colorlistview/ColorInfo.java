@@ -65,12 +65,14 @@ public class ColorInfo  extends ListFragment {
             args[i] = selectionArgs[i];
         }
 
+        SharedPreferences preferences = getActivity().getSharedPreferences(MyPREF,Context.MODE_PRIVATE);
+        String sort = preferences.getString("key",null);
         mCursor = ((MainActivity)getActivity()).getContentResolver().query(
                 uri,
                 projection,
                 selection,
                 selectionArgs,
-                null);
+                sort);
         if(mCursor != null)
             mCursor.moveToFirst();
 
