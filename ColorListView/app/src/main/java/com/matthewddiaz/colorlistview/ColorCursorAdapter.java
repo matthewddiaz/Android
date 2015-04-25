@@ -23,6 +23,10 @@ public class ColorCursorAdapter extends CursorAdapter{
     static private final int VALUE = 4;
     static public final String ORDER_BY= ColorTable.Column_NAME;
 
+    static private class ViewHolder {
+        TextView color_name;
+    }
+
     static public final String[] PROJECTION
             = new String[] {
             ColorTable.COLUMN_ID,
@@ -32,23 +36,30 @@ public class ColorCursorAdapter extends CursorAdapter{
             ColorTable.Column_VALUE,
     };
 
-    private LayoutInflater mInflater;
-
     public ColorCursorAdapter(Context context, Cursor cursor,int flags){
         super(context,cursor,flags);
-        mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View row= mInflater.inflate(R.layout.color, parent, false);
-        TextView text = (TextView)row.findViewById(R.id.colortext);
-        text.setText(cursor.getString(NAME));
+        LayoutInflater mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View row = mInflater.inflate(R.layout.color, parent, false);
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.color_name = (TextView)row.findViewById(R.id.colortext);
+        row.setTag(viewHolder);
+
         return row;
+    }
+
+    private ViewHolder updateViewHolderValues(View view, Cursor cursor) {
+        ViewHolder viewHolder = (ViewHolder) view.getTag();
+        viewHolder.color_name.setText(cursor.getString(NAME));
+        return viewHolder;
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+        ViewHolder viewHolder = updateViewHolderValues(view,cursor);
     }
 
 }

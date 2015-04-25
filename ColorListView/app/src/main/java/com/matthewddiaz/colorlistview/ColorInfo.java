@@ -21,7 +21,6 @@ import android.widget.Toast;
  * Created by matthew on 4/20/15.
  */
 public class ColorInfo  extends ListFragment {
-    private ColorDBHelper db;
     public static final String MyPREF = "MyPrefs";
     private float[] colorVals;
     private Cursor mCursor;
@@ -30,7 +29,7 @@ public class ColorInfo  extends ListFragment {
     private String[] projection;
     private String[] args;
     private String selection;
-    private AlertDialog alertDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
