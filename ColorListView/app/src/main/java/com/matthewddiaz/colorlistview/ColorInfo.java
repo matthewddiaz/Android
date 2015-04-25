@@ -124,7 +124,7 @@ public class ColorInfo  extends ListFragment {
                                 "Value, Hue, Saturation","Value, Saturation, Hue"};
          AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-            builder.setTitle("hey").setSingleChoiceItems(options, -1,
+            builder.setTitle("Sort By").setSingleChoiceItems(options, -1,
                     new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int position) {

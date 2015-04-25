@@ -5,5 +5,7 @@
     <string name="sat_des">S </string>
     <string name="val_des">V </string>
     <string name="sort_by">Sort By</string>
-
+    <string name="button_swatch_text">Change Swatches! </string>
+    <string name="alert_dialog_title">Move Slider! </string>
+    <string name="button_in_swatch">OK!</string>
 </resources>

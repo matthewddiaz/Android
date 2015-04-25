@@ -1,6 +1,7 @@
 package com.matthewddiaz.colorlistview;
 
 
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ListFragment;
@@ -20,10 +21,11 @@ public class ColorListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_color_list, container, false);
+        View view =  inflater.inflate(R.layout.first_fragment, container, false);
         if(mAdapter == null){
             populateList();
         }
+
         return view;
     }
 
