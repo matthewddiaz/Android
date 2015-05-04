@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +13,6 @@ import android.util.Log;
 public class MainActivity extends Activity {
     public static final String MyPREF = "MyPrefs";
     public static  final String IS_OPEN = "false";
-    private SQLiteDatabase database = null;
     private ColorDBHelper  dbHelper;
     private SharedPreferences sharedPreferences;
 
@@ -24,7 +21,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new ColorDBHelper(this);
-        database = dbHelper.getWritableDatabase();
         sharedPreferences = getSharedPreferences(MyPREF, Context.MODE_PRIVATE);
         addListFragment();
         Boolean bool = sharedPreferences.getBoolean(IS_OPEN, true);
@@ -60,7 +56,7 @@ public class MainActivity extends Activity {
                 contentValues.put(ColorTable.Column_HUE, hues[i]);
                 contentValues.put(ColorTable.Column_SATURATION,saturations[i]);
                 contentValues.put(ColorTable.Column_VALUE, values[i]);
-                database.insert(ColorTable.TABLE_COLORS, null, contentValues);
+                getContentResolver().insert(ColorContentProvider.CONTENT_URI , contentValues);
             }
 
             sharedPreferences = getSharedPreferences(MyPREF, 0);
