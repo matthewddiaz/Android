@@ -25,6 +25,7 @@ public class ColorCursorAdapter extends CursorAdapter{
 
     static private class ViewHolder {
         TextView color_name;
+        TextView color_swatch;
     }
 
     static public final String[] PROJECTION
@@ -43,9 +44,10 @@ public class ColorCursorAdapter extends CursorAdapter{
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = mInflater.inflate(R.layout.color, parent, false);
+        View row = mInflater.inflate(R.layout.color_swatches, parent, false);
         ViewHolder viewHolder = new ViewHolder();
-        viewHolder.color_name = (TextView)row.findViewById(R.id.colortext);
+        viewHolder.color_name = (TextView)row.findViewById(R.id.colorName);//The TextView color_name is equal to the TextView in color_swatches called colorName
+        viewHolder.color_swatch = (TextView)row.findViewById(R.id.colorHint);
         row.setTag(viewHolder);
 
         return row;
@@ -54,6 +56,11 @@ public class ColorCursorAdapter extends CursorAdapter{
     private ViewHolder updateViewHolderValues(View view, Cursor cursor) {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
         viewHolder.color_name.setText(cursor.getString(NAME));
+        Float h = cursor.getFloat(HUE);
+        Float s = cursor.getFloat(SATURATION);
+        Float v = cursor.getFloat(VALUE);
+        ColorMaker color = new ColorMaker(h,s,v);
+        viewHolder.color_swatch.setBackgroundColor(color.makeColor());
         return viewHolder;
     }
 

@@ -92,19 +92,22 @@ public class ColorInfo  extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         mCursor.moveToPosition(position);
+
+        String c_name = mCursor.getString(mCursor.getColumnIndex(ColorTable.Column_NAME)) + "\n";
         float hue = mCursor.getFloat(mCursor.getColumnIndex(ColorTable.Column_HUE));
-        Log.d(null,"Value of Column_Hue " + mCursor.getColumnIndex(ColorTable.Column_HUE));
         float sat = mCursor.getFloat(mCursor.getColumnIndex(ColorTable.Column_SATURATION));
         float value = mCursor.getFloat(mCursor.getColumnIndex(ColorTable.Column_VALUE));
-        CharSequence vals = getColorInfo(hue,sat,value);
+
+        CharSequence vals = getColorInfo(c_name,hue,sat,value);
         makeToast(vals);
     }
 
-    public String getColorInfo(float hue,float sat,float val){//rounding the float to the nearest int then turning to a String value
-        StringBuffer sb = new StringBuffer();
+    public String getColorInfo(String name,float hue,float sat,float val){//rounding the float to the nearest int then turning to a String value
+        StringBuffer sb = new StringBuffer();//making the text for the Toast
         String h = "Hue is at " + Integer.toString(Math.round(hue)) + "°" + " \n";
         String s = "Saturation is at " + Integer.toString(Math.round(sat)) + "%" +" \n";
         String v = "Value is at " + Integer.toString(Math.round(val)) + "%" + " \n";
+        sb.append(name);
         sb.append(h);
         sb.append(s);
         sb.append(v);
